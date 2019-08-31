@@ -1,0 +1,25 @@
+{
+  "name": "simple-color",
+  "version": "0.0.1",
+  "description": "A simple color library.",
+  "main": "lib/index.js",
+  "files": [
+    "lib",
+    "README.md"
+  ],
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "prepublishOnly": "tsc -b && npm run test",
+    "test": "jest"
+  },
+  "author": "Syler",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "ts-jest": "^24.0.2",
+    "@types/jest": "^24.0.18",
+    "typescript": "^3.6.2"
+  }
+}
