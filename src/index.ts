@@ -34,10 +34,10 @@ export default class SimpleColor {
   }
   Set(input: string | Color) {
     if (typeof input === 'object') {
-      this.r = input.r === undefined ? 1 : input.r;
-      this.g = input.g === undefined ? 1 : input.g;
-      this.b = input.b === undefined ? 1 : input.b;
-      this.a = input.a === undefined ? 1 : input.a;
+      this.r = input.r === undefined ? 1 : input.r > 1 ? 1 : input.r;
+      this.g = input.g === undefined ? 1 : input.g > 1 ? 1 : input.g;
+      this.b = input.b === undefined ? 1 : input.b > 1 ? 1 : input.b;
+      this.a = input.a === undefined ? 1 : input.a > 1 ? 1 : input.a;
     } else if (typeof input === 'string') {
       this.HandleSetString(input);
     } else {
@@ -114,13 +114,13 @@ export default class SimpleColor {
         length > 4
           ? parseInt(raw.substring(length - modulo, length), 16)
           : parseInt(raw.substring(length - modulo, length).concat(raw.substring(length - modulo, length)), 16);
+      color.alpha = color.alpha / 255;
     } else {
       color.alpha = 1;
     }
-
-    this.r = color.red;
-    this.g = color.green;
-    this.b = color.blue;
+    this.r = color.red / 255;
+    this.g = color.green / 255;
+    this.b = color.blue / 255;
     this.a = color.alpha;
   }
   /**

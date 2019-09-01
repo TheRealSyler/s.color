@@ -46,6 +46,8 @@ test('Set', () => {
   expect(new Color('rgb(0, 0, 0)').Get('object')).toStrictEqual({ r: 0, g: 0, b: 0, a: 1 });
   expect(new Color('rgba(0 0 0 0)').Get('object')).toStrictEqual({ r: 0, g: 0, b: 0, a: 0 });
   expect(new Color('#00000000').Get('object')).toStrictEqual({ r: 0, g: 0, b: 0, a: 0 });
+  expect(new Color('#00000000').Get('rgba')).toStrictEqual('rgba(0, 0, 0, 0.00)');
+  expect(new Color('#fff').Get('rgba')).toStrictEqual('rgba(255, 255, 255, 1.00)');
 });
 test('Set Warning', () => {
   const spy = jest.spyOn(console, 'warn').mockImplementation();
