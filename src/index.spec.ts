@@ -1,5 +1,5 @@
-import Color from './index';
-import { RGBColor, HSVColor } from './interfaces';
+import Color, { RGBColor, HSVColor } from './index';
+import { HSVToRGB } from './ColorConverters';
 
 test('Get Hex', () => {
   const a = new Color({ r: 0, g: 0, b: 0, a: 0 });
@@ -68,12 +68,12 @@ test('Set Warning', () => {
   new Color('rb(0, 0, 0)');
   new Color('rgba 0 0 0 0)');
   new Color('[1, 1, 1, 1]');
-  expect(spy).toBeCalledWith('[S.Color] Invalid Input:', expect.anything());
+  expect(spy).toBeCalledWith('[S.Color] Invalid String Input:', expect.anything());
   spy.mockRestore();
 });
 
 test('HVS to RGB', () => {
-  expect(Color.HSVToRGB(new HSVColor(0, 1, 1))).toStrictEqual(new RGBColor(1, 0, 0));
-  expect(Color.HSVToRGB(new HSVColor(120, 1, 1))).toStrictEqual(new RGBColor(0, 1, 0));
-  expect(Color.HSVToRGB(new HSVColor(240, 1, 1))).toStrictEqual(new RGBColor(0, 0, 1));
+  expect(HSVToRGB(new HSVColor(0, 1, 1))).toStrictEqual(new RGBColor(1, 0, 0));
+  expect(HSVToRGB(new HSVColor(120, 1, 1))).toStrictEqual(new RGBColor(0, 1, 0));
+  expect(HSVToRGB(new HSVColor(240, 1, 1))).toStrictEqual(new RGBColor(0, 0, 1));
 });
