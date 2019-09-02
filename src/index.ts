@@ -1,12 +1,12 @@
-import { Color, GetColorType, GetColorOptions } from './interfaces';
+import { RGBColor, GetColorType, GetColorOptions, HSVColor } from './interfaces';
 import { isValidHex, isValidRGB } from './regex';
 
-export default class SimpleColor {
+export default class Color {
   private r: number;
   private g: number;
   private b: number;
   private a: number;
-  constructor(input: string | Color) {
+  constructor(input: string | RGBColor) {
     this.Set(input);
   }
 
@@ -23,16 +23,16 @@ export default class SimpleColor {
               .toFixed(2)
               .toString()})`;
           case 'object':
-            return { r: this.r, g: this.g, b: this.b, a: this.a };
-          case 'object-long':
-            return { red: this.r, green: this.g, blue: this.b, alpha: this.a };
+            return new RGBColor(this.r, this.g, this.b, this.a);
+          case 'hsv':
+            return Color.RGBToHSV(new RGBColor(this.r, this.g, this.b, this.a));
         }
       }
     } else {
-      return { r: this.r, g: this.g, b: this.b, a: this.a };
+      return new RGBColor(this.r, this.g, this.b, this.a);
     }
   }
-  Set(input: string | Color) {
+  Set(input: string | RGBColor) {
     if (typeof input === 'object') {
       this.r = input.r === undefined ? 1 : input.r > 1 ? 1 : input.r;
       this.g = input.g === undefined ? 1 : input.g > 1 ? 1 : input.g;
@@ -47,6 +47,7 @@ export default class SimpleColor {
       this.a = 1;
     }
   }
+  // Mutate(type: 'lighten', amount: number) {}
   private HandleGetHex(type: GetColorType, options?: GetColorOptions) {
     let alpha = Math.round(this.a * 255).toString(16);
     let red = Math.round(this.r * 255).toString(16);
@@ -95,7 +96,7 @@ export default class SimpleColor {
         }
       }
     }
-    console.warn('[Simple Color] Invalid Input:', input);
+    console.warn('[S.Color] Invalid Input:', input);
   }
   /**
    * **assumes that the input is valid**
@@ -132,5 +133,38 @@ export default class SimpleColor {
     this.g = parseInt(split[1].replace(/\D/g, '')) / 255;
     this.b = parseInt(split[2].replace(/\D/g, '')) / 255;
     this.a = split[3] ? parseFloat(split[3].replace(/[^\.\d]/g, '')) : 1;
+  }
+  static RGBToHSV(color: RGBColor) {
+    const cMax = Math.max(color.r, color.g, color.b);
+    const cMin = Math.min(color.r, color.g, color.b);
+    const diff = cMax - cMin;
+    // Hue
+    const hue =
+      cMax === 1 && cMin === 1
+        ? 0
+        : cMax === 0 && cMin === 0
+        ? 0
+        : cMax === color.r
+        ? (60 * ((color.g - color.b) / diff) + 360) % 360
+        : cMax === color.g
+        ? (60 * ((color.b - color.r) / diff) + 120) % 360
+        : cMax === color.b
+        ? (60 * ((color.r - color.g) / diff) + 240) % 360
+        : 0;
+
+    // Saturation
+    let saturation: number;
+    //
+    if (cMax === 0) {
+      saturation = 0;
+    } else {
+      saturation = (diff / cMax) * 100;
+    }
+
+    return new HSVColor(hue, saturation / 100, cMax, color.a);
+  }
+  static HSVToRGB(hsv: HSVColor) {
+    let f = (n: number, k = (n + hsv.h / 60) % 6) => hsv.v - hsv.v * hsv.s * Math.max(Math.min(k, 4 - k, 1), 0);
+    return new RGBColor(f(5), f(3), f(1), hsv.a);
   }
 }

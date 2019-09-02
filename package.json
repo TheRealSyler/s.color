@@ -11,8 +11,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "prepare": "tsc -b && npm run test",
-    "test": "jest"
+    "prepare": "npm run test",
+    "test": "tsc -b && jest"
   },
   "author": "Syler",
   "license": "MIT",

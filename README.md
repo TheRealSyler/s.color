@@ -15,7 +15,6 @@ colorA.Get('hex-short'); // '#614f'
 colorA.Get('hex-without-alpha'); // '#661144'
 colorA.Get('hex-without-alpha-short'); // '#614'
 colorA.Get('object'); // { r: 0.4, g: 0.06666666666666667, b: 0.26666666666666666, a: 1 }
-colorA.Get('object-long'); // { red: 0.4, green: 0.06666666666666667, blue: 0.26666666666666666, alpha: 1 }
 colorA.Get('rgb'); // 'rgb(102, 17, 68)'
 colorA.Get('rgba'); // 'rgba(102, 17, 68, 1.00)'
 
