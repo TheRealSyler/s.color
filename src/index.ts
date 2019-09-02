@@ -1,7 +1,7 @@
 import { GetColorType, GetColorOptions } from './interfaces';
 import { HandleGetHex } from './HandleGet';
 import { HandleSetString } from './HandleSet';
-import { RGBColor, HSVColor } from './ColorTypes';
+import { RGBColor } from './ColorTypes';
 import { RGBToHSV } from './ColorConverters';
 
 export * from './ColorTypes';
