@@ -1,5 +1,5 @@
 # _Simple Library for color conversion_
-
+[![jest](https://jestjs.io/img/jest-badge.svg)](https://github.com/facebook/jest)
 ## **Usage**
 
 ``` ts
@@ -24,6 +24,23 @@ colorA.Set('rgb(23, 21, 243)');
 colorA.Set('rgba(23 21 243 0.5)');
 colorA.Set('#3412350a');
 colorA.Set('#a4a');
+
+// Converters
+import {RGBToHSV, HSVToRGB, StringToRGB, StringToHVS, HSVToHEX, RGBToHEX} from 'simple-color';
+
+StringToRGB('#f00') // {r: 1, g: 0, b: 0, a: 1}
+RGBToHEX({ r: 148 / 255, g: 53 / 255, b: 34 / 255, a: 111 / 255 }) // '#9435226f'
+// Same for all the other converters
+
+// Color Types
+import {RGBColor, HSVColor, StringColor} from 'simple-color';
+
+const rgb = new RGBColor(1, 0, 0) // {r: 1, g: 0, b: 0, a: 1}
+const hsv = new HSVColor(180, 0.6, 1, 0.5) // {r: 180, s: 0.6, v: 1, a: 0.5}
+// Valid strings are #000 | #0000 | #000000 | #00000000
+// Or rgb(0, 0, 0, 0) | rgba(0, 0, 0, 0, 0) Range [rgb 0-255, a: 0-1]
+const string = new StringColor('#043') // string.color: '#043'
+
 
 ```
 

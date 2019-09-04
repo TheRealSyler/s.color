@@ -1,5 +1,5 @@
 import Color, { RGBColor, HSVColor } from './index';
-import { HSVToRGB } from './ColorConverters';
+import { HSVToRGB, StringToRGB, RGBToHEX } from './ColorConverters';
 
 test('Get Hex', () => {
   const a = new Color({ r: 0, g: 0, b: 0, a: 0 });
@@ -20,6 +20,7 @@ test('Get Hex', () => {
   expect(c.Get('hex-without-alpha')).toBe('#943522');
   expect(c.Get('hex-without-alpha-short')).toBe('#932');
 });
+
 test('Get RGB(A)', () => {
   const a = new Color({ r: 0, g: 0, b: 0, a: 0 });
   expect(a.Get('rgb')).toBe('rgb(0, 0, 0)');
@@ -31,6 +32,7 @@ test('Get RGB(A)', () => {
   expect(c.Get('rgb')).toBe('rgb(148, 53, 34)');
   expect(c.Get('rgba')).toBe('rgba(148, 53, 34, 0.44)');
 });
+
 test('Get Object', () => {
   const a = new Color({ r: 0, g: 0, b: 0, a: 0 });
   expect(a.Get('object')).toStrictEqual(new RGBColor(0, 0, 0, 0));
@@ -39,6 +41,7 @@ test('Get Object', () => {
   const c = new Color({ r: 148 / 255, g: 53 / 255, b: 34 / 255, a: 111 / 255 });
   expect(c.Get('object')).toStrictEqual(new RGBColor(148 / 255, 53 / 255, 34 / 255, 111 / 255));
 });
+
 test('Get HSV', () => {
   const a = new Color({ r: 45 / 255, g: 215 / 255, b: 0, a: 0 });
   expect(a.Get('hsv')).toStrictEqual(new HSVColor(107.44186046511628, 1, 0.8431372549019608, 0));
@@ -55,11 +58,12 @@ test('Get HSV', () => {
 test('Set', () => {
   expect(new Color('#000').Get('object')).toStrictEqual(new RGBColor(0, 0, 0, 1));
   expect(new Color('rgb(0, 0, 0)').Get('object')).toStrictEqual(new RGBColor(0, 0, 0, 1));
-  expect(new Color('rgba(0 0 0 0)').Get('object')).toStrictEqual(new RGBColor(0, 0, 0, 0));
+  expect(new Color('rgba(255 0 0 0)').Get('object')).toStrictEqual(new RGBColor(1, 0, 0, 0));
   expect(new Color('#00000000').Get('object')).toStrictEqual(new RGBColor(0, 0, 0, 0));
   expect(new Color('#00000000').Get('rgba')).toStrictEqual('rgba(0, 0, 0, 0.00)');
   expect(new Color('#fff').Get('rgba')).toStrictEqual('rgba(255, 255, 255, 1.00)');
 });
+
 test('Set Warning', () => {
   const spy = jest.spyOn(console, 'warn').mockImplementation();
   new Color('#00');
@@ -76,4 +80,22 @@ test('HVS to RGB', () => {
   expect(HSVToRGB(new HSVColor(0, 1, 1))).toStrictEqual(new RGBColor(1, 0, 0));
   expect(HSVToRGB(new HSVColor(120, 1, 1))).toStrictEqual(new RGBColor(0, 1, 0));
   expect(HSVToRGB(new HSVColor(240, 1, 1))).toStrictEqual(new RGBColor(0, 0, 1));
+});
+test('String to RGB', () => {
+  expect(StringToRGB('#f00')).toStrictEqual(new RGBColor(1, 0, 0));
+  expect(StringToRGB('#00ff00')).toStrictEqual(new RGBColor(0, 1, 0));
+  expect(StringToRGB('#afdfdaff')).toStrictEqual(new RGBColor(0.6862745098039216, 0.8745098039215686, 0.8549019607843137));
+});
+test('String to RGB Warning', () => {
+  const spy = jest.spyOn(console, 'warn').mockImplementation();
+  StringToRGB('#f0');
+  StringToRGB('ff0');
+  StringToRGB('#f00000000');
+  expect(spy).toBeCalledWith('[S.Color] Invalid String Input:', expect.anything());
+  spy.mockRestore();
+});
+test('RGB to HEX', () => {
+  expect(RGBToHEX({ r: 1, g: 0, b: 0, a: 1 })).toStrictEqual('#ff0000ff');
+  expect(RGBToHEX({ r: 1, g: 1, b: 0, a: 1 })).toStrictEqual('#ffff00ff');
+  expect(RGBToHEX({ r: 148 / 255, g: 53 / 255, b: 34 / 255, a: 111 / 255 })).toStrictEqual('#9435226f');
 });

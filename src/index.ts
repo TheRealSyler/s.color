@@ -1,6 +1,6 @@
 import { GetColorType, GetColorOptions } from './interfaces';
 import { HandleGetHex } from './HandleGet';
-import { HandleSetString } from './HandleSet';
+import { HandleConvertString } from './HandleSet';
 import { RGBColor } from './ColorTypes';
 import { RGBToHSV } from './ColorConverters';
 
@@ -45,7 +45,7 @@ export default class Color {
         input.a === undefined ? 1 : input.a > 1 ? 1 : input.a
       );
     } else if (typeof input === 'string') {
-      const tempColor = HandleSetString(input);
+      const tempColor = HandleConvertString(input);
       this.color = tempColor === null ? this.color : tempColor;
     } else {
       this.color = new RGBColor(0, 0, 0, 0);

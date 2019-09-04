@@ -1,24 +1,19 @@
-import { isValidHex, isValidRGB } from './regex';
+import { isValidStringColor } from './regex';
 import { RGBColor } from './ColorTypes';
 
-export function HandleSetString(input: string) {
-  if (input.startsWith('#')) {
-    if (isValidHex(input)) {
-      return HandleSetBasedOnHexString(input);
+export function HandleConvertString(input: string) {
+  if (isValidStringColor(input)) {
+    if (input.startsWith('#')) {
+      return HandleConvertHexString(input);
+    } else if (input.startsWith('rgb')) {
+      return HandleConvertRgbString(input);
     }
-  } else if (input.startsWith('rgb')) {
-    if (isValidRGB(input)) {
-      return HandleSetBasedOnRgbString(input);
-    }
-  } else {
-    console.warn('[S.Color] Invalid String Input:', input);
-    return null;
   }
 }
 /**
  * **assumes that the input is valid**
  */
-function HandleSetBasedOnHexString(text: string) {
+function HandleConvertHexString(text: string) {
   let color = { red: 0, green: 0, blue: 0, alpha: 0 };
   const raw = text.replace('#', '');
   const length = raw.length;
@@ -42,7 +37,7 @@ function HandleSetBasedOnHexString(text: string) {
 /**
  * **assumes that the input is valid**
  */
-function HandleSetBasedOnRgbString(text: string) {
+function HandleConvertRgbString(text: string) {
   const split = text.split(/,|\b /g);
   return new RGBColor(
     parseInt(split[0].replace(/\D/g, '')) / 255,
