@@ -11,7 +11,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "prepare": "npm run test",
+    "prepack": "npm run test",
     "test": "tsc -b && jest"
   },
   "author": "Syler",
