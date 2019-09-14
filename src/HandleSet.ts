@@ -1,4 +1,4 @@
-import { isValidStringColor } from './regex';
+import { isValidStringColor } from './validators';
 import { RGBColor } from './ColorTypes';
 
 export function HandleConvertString(input: string) {

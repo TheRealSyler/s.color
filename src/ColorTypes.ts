@@ -1,4 +1,4 @@
-import { isValidStringColor } from './regex';
+import { isValidStringColor } from './validators';
 
 /**
  * Represents a color in the rgb(a) format.

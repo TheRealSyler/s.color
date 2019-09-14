@@ -4,7 +4,7 @@
 ## **Usage**
 
 ``` ts
-import Color from 'simple-color';
+import Color from 's.color';
 
 // The constructor just calls color.Set() (look below)
 const colorA = new Color('#614f');

@@ -1,6 +1,6 @@
 import { RGBColor, HSVColor } from './ColorTypes';
 import { HandleConvertString } from './HandleSet';
-import { isValidStringColor } from './regex';
+import { isValidStringColor } from './validators';
 import { HandleGetHex } from './HandleGet';
 /**
  * Takes an `RGBColor` and converts it to `HSVColor`
