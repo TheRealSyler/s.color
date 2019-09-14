@@ -1,4 +1,4 @@
-import { isValidHex, isValidRGB } from './Regex';
+import { isValidHex, isValidRGB } from './regex';
 
 export function isValidStringColor(input: string) {
   if (isValidHex(input) || isValidRGB(input)) {
