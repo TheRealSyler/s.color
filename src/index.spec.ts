@@ -1,5 +1,5 @@
 import Color, { RGBColor, HSVColor } from './index';
-import { HSVToRGB, StringToRGB, RGBToHEX } from './ColorConverters';
+import { HSVToRGB, StringToRGB, RGBToHEX, RGBToHSV } from './ColorConverters';
 
 test('Get Hex', () => {
   const a = new Color({ r: 0, g: 0, b: 0, a: 0 });
@@ -95,7 +95,18 @@ test('String to RGB Warning', () => {
   spy.mockRestore();
 });
 test('RGB to HEX', () => {
+  expect(RGBToHEX({ r: 0, g: 0, b: 0, a: 1 })).toStrictEqual('#000000ff');
   expect(RGBToHEX({ r: 1, g: 0, b: 0, a: 1 })).toStrictEqual('#ff0000ff');
   expect(RGBToHEX({ r: 1, g: 1, b: 0, a: 1 })).toStrictEqual('#ffff00ff');
-  expect(RGBToHEX({ r: 148 / 255, g: 53 / 255, b: 34 / 255, a: 111 / 255 })).toStrictEqual('#9435226f');
+  expect(RGBToHEX({ r: 0, g: 0, b: 166, a: 1 })).toStrictEqual('#0000a6ff');
+  expect(RGBToHEX({ r: 148, g: 53, b: 34, a: 111 / 255 })).toStrictEqual('#9435226f');
+  expect(RGBToHEX({ r: 148, g: 53, b: 34, a: 111 })).toStrictEqual('#9435226f');
+  expect(RGBToHEX({ r: 227, g: 135, b: 13, a: 1 })).toStrictEqual('#e3870dff');
+  expect(RGBToHEX({ r: 13, g: 13, b: 13, a: 1 })).toStrictEqual('#0d0d0dff');
+  expect(RGBToHEX({ r: 167, g: 0.7307692307692264, b: 0, a: 1 })).toStrictEqual('#a70100ff');
+});
+test('RGB to HVS', () => {
+  expect(RGBToHSV({ r: 1, g: 1, b: 1, a: 1 })).toStrictEqual(new HSVColor(0, 0, 1));
+  expect(RGBToHSV({ r: 255, g: 255, b: 255, a: 1 })).toStrictEqual(new HSVColor(0, 0, 1));
+  expect(RGBToHSV({ r: 255, g: 255, b: 255, a: 255 })).toStrictEqual(new HSVColor(0, 0, 1));
 });

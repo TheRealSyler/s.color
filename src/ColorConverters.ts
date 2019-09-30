@@ -2,6 +2,8 @@ import { RGBColor, HSVColor } from './ColorTypes';
 import { HandleConvertString } from './HandleSet';
 import { isValidStringColor } from './validators';
 import { HandleGetHex } from './HandleGet';
+import { GetColorType } from './interfaces';
+
 /**
  * Takes an `RGBColor` and converts it to `HSVColor`
  */
@@ -32,7 +34,7 @@ export function RGBToHSV(color: RGBColor): HSVColor {
     saturation = (diff / cMax) * 100;
   }
 
-  return new HSVColor(hue, saturation / 100, cMax, color.a);
+  return new HSVColor(hue, saturation / 100, cMax, color.a > 1 ? color.a / 255 : color.a);
 }
 /**
  * Takes an `HSVColor` and converts it to `RGBColor`
@@ -62,13 +64,19 @@ export function StringToHVS(hex: string): HSVColor {
 /**
  * Takes an `HSVColor` and converts it to `String` (HEX Format)
  */
-export function HSVToHEX(hsv: HSVColor): string {
+export function HSVToHEX(hsv: HSVColor, type?: GetColorType): string {
   const f = (n: number, k = (n + hsv.h / 60) % 6) => hsv.v - hsv.v * hsv.s * Math.max(Math.min(k, 4 - k, 1), 0);
-  return HandleGetHex('hex', { r: f(5), g: f(3), b: f(1), a: hsv.a });
+  return HandleGetHex(type ? type : 'hex', { r: f(5), g: f(3), b: f(1), a: hsv.a });
 }
+
 /**
  * Takes an `RGBColor` and converts it to `String` (HEX Format)
  */
-export function RGBToHEX(color: RGBColor): string {
-  return HandleGetHex('hex', { r: color.r, g: color.g, b: color.b, a: color.a });
+export function RGBToHEX(color: RGBColor, type?: GetColorType): string {
+  return HandleGetHex(type ? type : 'hex', {
+    r: color.r,
+    g: color.g,
+    b: color.b,
+    a: color.a
+  });
 }
