@@ -7,6 +7,7 @@ import { RGBToHSV } from './ColorConverters';
 export * from './ColorTypes';
 export * from './ColorConverters';
 export * from './regex';
+export * from './validators';
 
 export default class Color {
   private color: RGBColor;
