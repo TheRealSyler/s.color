@@ -1,7 +1,7 @@
 {
   "name": "s.color",
-  "version": "0.0.7",
-  "description": "A simple color library.",
+  "version": "0.0.8",
+  "description": "Simple color library.",
   "main": "lib/index.js",
   "files": [
     "lib",

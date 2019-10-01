@@ -8,8 +8,9 @@ import { GetColorType } from './interfaces';
  * Takes an `RGBColor` and converts it to `HSVColor`
  */
 export function RGBToHSV(color: RGBColor): HSVColor {
-  const cMax = Math.max(color.r, color.g, color.b);
-  const cMin = Math.min(color.r, color.g, color.b);
+  const isLong = color.b > 1 || color.g > 1 || color.r > 1;
+  const cMax = Math.max(isLong ? color.r / 255 : color.r, isLong ? color.g / 255 : color.g, isLong ? color.b / 255 : color.b);
+  const cMin = Math.min(isLong ? color.r / 255 : color.r, isLong ? color.g / 255 : color.g, isLong ? color.b / 255 : color.b);
   const diff = cMax - cMin;
   // Hue
   const hue =
