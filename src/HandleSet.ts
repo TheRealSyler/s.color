@@ -1,19 +1,19 @@
 import { isValidStringColor } from './validators';
 import { RGBColor } from './ColorTypes';
 
-export function HandleConvertString(input: string) {
+export function HandleConvertString(input: string, return255?: boolean) {
   if (isValidStringColor(input)) {
     if (input.startsWith('#')) {
-      return HandleConvertHexString(input);
+      return HandleConvertHexString(input, return255);
     } else if (input.startsWith('rgb')) {
-      return HandleConvertRgbString(input);
+      return HandleConvertRgbString(input, return255);
     }
   }
 }
 /**
  * **assumes that the input is valid**
  */
-function HandleConvertHexString(text: string) {
+export function HandleConvertHexString(text: string, return255?: boolean) {
   let color = { red: 0, green: 0, blue: 0, alpha: 0 };
   const raw = text.replace('#', '');
   const length = raw.length;
@@ -32,17 +32,22 @@ function HandleConvertHexString(text: string) {
     color.alpha = 1;
   }
 
-  return new RGBColor(color.red / 255, color.green / 255, color.blue / 255, color.alpha);
+  return new RGBColor(
+    return255 ? color.red : color.red / 255,
+    return255 ? color.green : color.green / 255,
+    return255 ? color.blue : color.blue / 255,
+    color.alpha
+  );
 }
 /**
  * **assumes that the input is valid**
  */
-function HandleConvertRgbString(text: string) {
+function HandleConvertRgbString(text: string, return255?: boolean) {
   const split = text.split(/,|\b /g);
   return new RGBColor(
-    parseInt(split[0].replace(/\D/g, '')) / 255,
-    parseInt(split[1].replace(/\D/g, '')) / 255,
-    parseInt(split[2].replace(/\D/g, '')) / 255,
+    parseInt(split[0].replace(/\D/g, '')) / (return255 ? 0 : 255),
+    parseInt(split[1].replace(/\D/g, '')) / (return255 ? 0 : 255),
+    parseInt(split[2].replace(/\D/g, '')) / (return255 ? 0 : 255),
     split[3] ? parseFloat(split[3].replace(/[^\.\d]/g, '')) : 1
   );
 }

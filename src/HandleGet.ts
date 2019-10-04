@@ -7,7 +7,7 @@ export function HandleGetHex(type: GetColorType, color: RGBColor, options?: GetC
   let red = Math.round(isLong ? color.r : color.r * 255).toString(16);
   let green = Math.round(isLong ? color.g : color.g * 255).toString(16);
   let blue = Math.round(isLong ? color.b : color.b * 255).toString(16);
-  // console.log('Blue', blue);
+
   if (options && options.UpperCaseHex) {
     alpha = alpha.toUpperCase();
     red = red.toUpperCase();

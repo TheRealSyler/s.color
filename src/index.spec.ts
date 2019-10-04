@@ -1,5 +1,5 @@
-import Color, { RGBColor, HSVColor } from './index';
-import { HSVToRGB, StringToRGB, RGBToHEX, RGBToHSV } from './ColorConverters';
+import Color, { RGBColor, HSVColor, ShiftHue } from './index';
+import { HSVToRGB, StringToRGB, RGBToHEX, RGBToHSV, StringToHVS } from './ColorConverters';
 
 test('Get Hex', () => {
   const a = new Color({ r: 0, g: 0, b: 0, a: 0 });
@@ -43,16 +43,48 @@ test('Get Object', () => {
 });
 
 test('Get HSV', () => {
-  const a = new Color({ r: 45 / 255, g: 215 / 255, b: 0, a: 0 });
-  expect(a.Get('hsv')).toStrictEqual(new HSVColor(107.44186046511628, 1, 0.8431372549019608, 0));
-  const b = new Color({ r: 255 / 255, g: 25 / 255, b: 29, a: 0 });
-  expect(b.Get('hsv')).toStrictEqual(new HSVColor(300.0, 0.9019607843137255, 1, 0));
+  const a = new Color({ r: 45, g: 215, b: 0, a: 0 });
+  expect(a.Get('hsv')).toStrictEqual(new HSVColor(107.44186046511628, 100, 84.31372549019608, 0));
+  const b = new Color({ r: 255, g: 25, b: 29, a: 0 });
+  expect(b.Get('hsv')).toStrictEqual(new HSVColor(358.95652173913044, 90.19607843137256, 100, 0));
   const c = new Color({ r: 0, g: 0, b: 0, a: 0 });
   expect(c.Get('hsv')).toStrictEqual(new HSVColor(0, 0, 0, 0));
   const d = new Color({ r: 1, g: 1, b: 1, a: 0 });
-  expect(d.Get('hsv')).toStrictEqual(new HSVColor(0, 0, 1, 0));
-  const e = new Color({ r: 129 / 255, g: 88 / 255, b: 47 / 255, a: 0 });
-  expect(e.Get('hsv')).toStrictEqual(new HSVColor(30.0, 0.6356589147286821, 0.5058823529411764, 0));
+  expect(d.Get('hsv')).toStrictEqual(new HSVColor(0, 0, 100, 0));
+  const e = new Color({ r: 129, g: 88, b: 47, a: 0 });
+  expect(e.Get('hsv')).toStrictEqual(new HSVColor(30, 63.56589147286821, 50.588235294117645, 0));
+});
+
+test('RGB to HVS', () => {
+  expect(RGBToHSV({ r: 1, g: 1, b: 1, a: 1 })).toStrictEqual(new HSVColor(0, 0, 100));
+  expect(RGBToHSV({ r: 255, g: 255, b: 255, a: 1 })).toStrictEqual(new HSVColor(0, 0, 100));
+  expect(RGBToHSV({ r: 255, g: 255, b: 255, a: 1 })).toStrictEqual(new HSVColor(0, 0, 100));
+
+  expect(RGBToHSV({ r: 123, g: 56, b: 34, a: 1 })).toStrictEqual(new HSVColor(14.831460674157313, 72.35772357723576, 48.23529411764706));
+
+  expect(RGBToHSV({ r: 255 / 255, g: 25 / 255, b: 29 / 255, a: 0 })).toStrictEqual(
+    new HSVColor(358.95652173913044, 90.19607843137256, 100, 0)
+  );
+  expect(RGBToHSV({ r: 255, g: 25, b: 29, a: 0 })).toStrictEqual(new HSVColor(358.95652173913044, 90.19607843137256, 100, 0));
+});
+
+test('RGB to HSV to RGB', () => {
+  expect(HSVToRGB(RGBToHSV(HSVToRGB(RGBToHSV(new RGBColor(255, 255, 255)))))).toStrictEqual(new RGBColor(255, 255, 255));
+  expect(HSVToRGB(RGBToHSV(HSVToRGB(RGBToHSV(HSVToRGB(RGBToHSV(new RGBColor(213, 213, 76)))))))).toStrictEqual(
+    new RGBColor(213, 213, 75.99999999999999)
+  );
+  expect(HSVToRGB(RGBToHSV(HSVToRGB(RGBToHSV(HSVToRGB(RGBToHSV(new RGBColor(54, 0, 34)))))))).toStrictEqual(
+    new RGBColor(54, 0, 34.00000000000001)
+  );
+});
+
+test('Shift Hue', () => {
+  expect(ShiftHue(new HSVColor(0, 0, 100), 180)).toStrictEqual(new HSVColor(180, 0, 100));
+  expect(ShiftHue(new HSVColor(0, 0, 100), 180 * 5)).toStrictEqual(new HSVColor(180, 0, 100));
+  expect(ShiftHue(new HSVColor(313, 0, 0), 35)).toStrictEqual(new HSVColor(348, 0, 0));
+  expect(ShiftHue(new HSVColor(240, 0, 0), 180)).toStrictEqual(new HSVColor(60, 0, 0));
+  expect(ShiftHue(new HSVColor(240, 0, 0), -180)).toStrictEqual(new HSVColor(60, 0, 0));
+  expect(ShiftHue(new HSVColor(240, 0, 0), -180 * 5)).toStrictEqual(new HSVColor(60, 0, 0));
 });
 
 test('Set', () => {
@@ -105,8 +137,7 @@ test('RGB to HEX', () => {
   expect(RGBToHEX({ r: 13, g: 13, b: 13, a: 1 })).toStrictEqual('#0d0d0dff');
   expect(RGBToHEX({ r: 167, g: 0.7307692307692264, b: 0, a: 1 })).toStrictEqual('#a70100ff');
 });
-test('RGB to HVS', () => {
-  expect(RGBToHSV({ r: 1, g: 1, b: 1, a: 1 })).toStrictEqual(new HSVColor(0, 0, 1));
-  expect(RGBToHSV({ r: 255, g: 255, b: 255, a: 1 })).toStrictEqual(new HSVColor(0, 0, 1));
-  expect(RGBToHSV({ r: 255, g: 255, b: 255, a: 255 })).toStrictEqual(new HSVColor(0, 0, 1));
+
+test('String to HSV', () => {
+  expect(StringToHVS('#ff0000')).toStrictEqual(new HSVColor(0, 100, 100));
 });

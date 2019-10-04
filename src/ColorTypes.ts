@@ -42,11 +42,11 @@ export class HSVColor {
    */
   h: number;
   /**
-   * Range [0-1]
+   * Range [0-100]
    */
   s: number;
   /**
-   * Range [0-1]
+   * Range [0-100]
    */
   v: number;
   /**

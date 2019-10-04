@@ -8,6 +8,7 @@ export * from './ColorTypes';
 export * from './ColorConverters';
 export * from './regex';
 export * from './validators';
+export * from './UtilityFunction';
 
 export default class Color {
   private color: RGBColor;
@@ -41,10 +42,10 @@ export default class Color {
   Set(input: string | RGBColor) {
     if (typeof input === 'object') {
       this.color = new RGBColor(
-        input.r === undefined ? 1 : input.r > 1 ? 1 : input.r,
-        input.g === undefined ? 1 : input.g > 1 ? 1 : input.g,
-        input.b === undefined ? 1 : input.b > 1 ? 1 : input.b,
-        input.a === undefined ? 1 : input.a > 1 ? 1 : input.a
+        input.r === undefined ? 1 : input.r > 1 ? input.r / 255 : input.r,
+        input.g === undefined ? 1 : input.g > 1 ? input.g / 255 : input.g,
+        input.b === undefined ? 1 : input.b > 1 ? input.b / 255 : input.b,
+        input.a === undefined ? 1 : input.a > 1 ? input.a / 255 : input.a
       );
     } else if (typeof input === 'string') {
       const tempColor = HandleConvertString(input);
