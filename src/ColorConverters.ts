@@ -41,8 +41,8 @@ export function RGBToHSV(color: RGBColor, is255?: boolean): HSVColor {
 /**
  * Takes an `HSVColor` and converts it to `RGBColor`
  */
-export function HSVToRGB(hsv: HSVColor, is255?: boolean): RGBColor {
-  const isLong = is255 ? true : hsv.s > 1 || hsv.v > 1;
+export function HSVToRGB(hsv: HSVColor, is100?: boolean): RGBColor {
+  const isLong = is100 ? true : hsv.s > 1 || hsv.v > 1;
   if (isLong) {
     hsv = { a: hsv.a, h: hsv.h, s: hsv.s / 100, v: hsv.v / 100 };
   }
@@ -58,9 +58,9 @@ export function HSVToRGB(hsv: HSVColor, is255?: boolean): RGBColor {
  * Takes an `StringColor` and converts it to `RGBColor`,
  * If input string is invalid `null` will be returned.
  */
-export function StringToRGB(input: string, return255?: boolean): RGBColor {
+export function StringToRGB(input: string, return255?: boolean, alpha255?: boolean): RGBColor {
   if (isValidStringColor(input)) {
-    return HandleConvertString(input, return255);
+    return HandleConvertString(input, return255, alpha255);
   }
   return null;
 }
@@ -68,9 +68,9 @@ export function StringToRGB(input: string, return255?: boolean): RGBColor {
  * Takes an `StringColor` and converts it to `HSVColor`,
  * If input string is invalid `null` will be returned.
  */
-export function StringToHVS(input: string, return255?: boolean): HSVColor {
+export function StringToHVS(input: string, return255?: boolean, alpha255?: boolean): HSVColor {
   if (isValidStringColor(input)) {
-    return RGBToHSV(HandleConvertString(input, return255));
+    return RGBToHSV(HandleConvertString(input, return255, alpha255));
   }
   return null;
 }

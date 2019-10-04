@@ -1,10 +1,10 @@
 import { isValidStringColor } from './validators';
 import { RGBColor } from './ColorTypes';
 
-export function HandleConvertString(input: string, return255?: boolean) {
+export function HandleConvertString(input: string, return255?: boolean, alpha255?: boolean) {
   if (isValidStringColor(input)) {
     if (input.startsWith('#')) {
-      return HandleConvertHexString(input, return255);
+      return HandleConvertHexString(input, return255, alpha255);
     } else if (input.startsWith('rgb')) {
       return HandleConvertRgbString(input, return255);
     }
@@ -13,7 +13,7 @@ export function HandleConvertString(input: string, return255?: boolean) {
 /**
  * **assumes that the input is valid**
  */
-export function HandleConvertHexString(text: string, return255?: boolean) {
+export function HandleConvertHexString(text: string, return255?: boolean, alpha255?: boolean) {
   let color = { red: 0, green: 0, blue: 0, alpha: 0 };
   const raw = text.replace('#', '');
   const length = raw.length;
@@ -27,7 +27,7 @@ export function HandleConvertHexString(text: string, return255?: boolean) {
       length > 4
         ? parseInt(raw.substring(length - modulo, length), 16)
         : parseInt(raw.substring(length - modulo, length).concat(raw.substring(length - modulo, length)), 16);
-    color.alpha = color.alpha / 255;
+    color.alpha = alpha255 ? color.alpha : color.alpha / 255;
   } else {
     color.alpha = 1;
   }
