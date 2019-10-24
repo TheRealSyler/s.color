@@ -2,7 +2,7 @@ import { RGBColor, HSVColor } from './ColorTypes';
 import { HandleConvertString } from './HandleSet';
 import { isValidStringColor } from './validators';
 import { HandleGetHex } from './HandleGet';
-import { GetColorType } from './interfaces';
+import { GetColorType, GetColorTypeHex } from './interfaces';
 
 /**
  * Takes an `RGBColor` and converts it to `HSVColor`
@@ -77,7 +77,7 @@ export function StringToHVS(input: string, return255?: boolean, alpha255?: boole
 /**
  * Takes an `HSVColor` and converts it to `String` (HEX Format)
  */
-export function HSVToHEX(hsv: HSVColor, options?: { type?: GetColorType; isLong?: boolean }): string {
+export function HSVToHEX(hsv: HSVColor, options?: { type?: GetColorTypeHex; isLong?: boolean }): string {
   if (hsv.s > 1 || hsv.v > 1 || (options && options.isLong)) {
     hsv.s = hsv.s / 100;
     hsv.v = hsv.v / 100;
@@ -89,7 +89,7 @@ export function HSVToHEX(hsv: HSVColor, options?: { type?: GetColorType; isLong?
 /**
  * Takes an `RGBColor` and converts it to `String` (HEX Format)
  */
-export function RGBToHEX(color: RGBColor, type?: GetColorType): string {
+export function RGBToHEX(color: RGBColor, type?: GetColorTypeHex): string {
   return HandleGetHex(type ? type : 'hex', {
     r: color.r,
     g: color.g,
