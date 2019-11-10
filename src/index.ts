@@ -1,6 +1,6 @@
 import { GetColorType, GetColorOptions } from './interfaces';
 import { HandleGetHex } from './HandleGet';
-import { HandleConvertString } from './HandleSet';
+import { ConvertString } from './HandleSet';
 import { RGBColor } from './ColorTypes';
 import { RGBToHSV } from './ColorConverters';
 
@@ -23,7 +23,9 @@ export default class Color {
       } else {
         switch (type) {
           case 'rgb':
-            return `rgb(${Math.round(this.color.r * 255)}, ${Math.round(this.color.g * 255)}, ${Math.round(this.color.b * 255)})`;
+            return `rgb(${Math.round(this.color.r * 255)}, ${Math.round(this.color.g * 255)}, ${Math.round(
+              this.color.b * 255
+            )})`;
           case 'rgba':
             return `rgba(${Math.round(this.color.r * 255)}, ${Math.round(this.color.g * 255)}, ${Math.round(
               this.color.b * 255
@@ -48,7 +50,7 @@ export default class Color {
         input.a === undefined ? 1 : input.a > 1 ? input.a / 255 : input.a
       );
     } else if (typeof input === 'string') {
-      const tempColor = HandleConvertString(input);
+      const tempColor = ConvertString(input);
       this.color = tempColor === null ? this.color : tempColor;
     } else {
       this.color = new RGBColor(0, 0, 0, 0);

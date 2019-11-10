@@ -60,16 +60,22 @@ test('RGB to HVS', () => {
   expect(RGBToHSV({ r: 255, g: 255, b: 255, a: 1 })).toStrictEqual(new HSVColor(0, 0, 100));
   expect(RGBToHSV({ r: 255, g: 255, b: 255, a: 1 })).toStrictEqual(new HSVColor(0, 0, 100));
 
-  expect(RGBToHSV({ r: 123, g: 56, b: 34, a: 1 })).toStrictEqual(new HSVColor(14.831460674157313, 72.35772357723576, 48.23529411764706));
+  expect(RGBToHSV({ r: 123, g: 56, b: 34, a: 1 })).toStrictEqual(
+    new HSVColor(14.831460674157313, 72.35772357723576, 48.23529411764706)
+  );
 
   expect(RGBToHSV({ r: 255 / 255, g: 25 / 255, b: 29 / 255, a: 0 })).toStrictEqual(
     new HSVColor(358.95652173913044, 90.19607843137256, 100, 0)
   );
-  expect(RGBToHSV({ r: 255, g: 25, b: 29, a: 0 })).toStrictEqual(new HSVColor(358.95652173913044, 90.19607843137256, 100, 0));
+  expect(RGBToHSV({ r: 255, g: 25, b: 29, a: 0 })).toStrictEqual(
+    new HSVColor(358.95652173913044, 90.19607843137256, 100, 0)
+  );
 });
 
 test('RGB to HSV to RGB', () => {
-  expect(HSVToRGB(RGBToHSV(HSVToRGB(RGBToHSV(new RGBColor(255, 255, 255)))))).toStrictEqual(new RGBColor(255, 255, 255));
+  expect(HSVToRGB(RGBToHSV(HSVToRGB(RGBToHSV(new RGBColor(255, 255, 255)))))).toStrictEqual(
+    new RGBColor(255, 255, 255)
+  );
   expect(HSVToRGB(RGBToHSV(HSVToRGB(RGBToHSV(HSVToRGB(RGBToHSV(new RGBColor(213, 213, 76)))))))).toStrictEqual(
     new RGBColor(213, 213, 75.99999999999999)
   );
@@ -114,9 +120,12 @@ test('HVS to RGB', () => {
   expect(HSVToRGB(new HSVColor(240, 1, 1))).toStrictEqual(new RGBColor(0, 0, 1));
 });
 test('String to RGB', () => {
+  expect(StringToRGB('rgb(255, 0, 0)', true)).toStrictEqual(new RGBColor(255, 0, 0));
   expect(StringToRGB('#f00')).toStrictEqual(new RGBColor(1, 0, 0));
   expect(StringToRGB('#00ff00')).toStrictEqual(new RGBColor(0, 1, 0));
-  expect(StringToRGB('#afdfdaff')).toStrictEqual(new RGBColor(0.6862745098039216, 0.8745098039215686, 0.8549019607843137));
+  expect(StringToRGB('#afdfdaff')).toStrictEqual(
+    new RGBColor(0.6862745098039216, 0.8745098039215686, 0.8549019607843137)
+  );
 });
 test('String to RGB Warning', () => {
   const spy = jest.spyOn(console, 'warn').mockImplementation();

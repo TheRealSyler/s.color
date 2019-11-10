@@ -1,8 +1,8 @@
 import { RGBColor, HSVColor } from './ColorTypes';
-import { HandleConvertString } from './HandleSet';
+import { ConvertString } from './HandleSet';
 import { isValidStringColor } from './validators';
 import { HandleGetHex } from './HandleGet';
-import { GetColorType, GetColorTypeHex } from './interfaces';
+import { GetColorTypeHex } from './interfaces';
 
 /**
  * Takes an `RGBColor` and converts it to `HSVColor`
@@ -60,7 +60,7 @@ export function HSVToRGB(hsv: HSVColor, is100?: boolean): RGBColor {
  */
 export function StringToRGB(input: string, return255?: boolean, alpha255?: boolean): RGBColor {
   if (isValidStringColor(input)) {
-    return HandleConvertString(input, return255, alpha255);
+    return ConvertString(input, return255, alpha255);
   }
   return null;
 }
@@ -70,7 +70,7 @@ export function StringToRGB(input: string, return255?: boolean, alpha255?: boole
  */
 export function StringToHVS(input: string, return255?: boolean, alpha255?: boolean): HSVColor {
   if (isValidStringColor(input)) {
-    return RGBToHSV(HandleConvertString(input, return255, alpha255));
+    return RGBToHSV(ConvertString(input, return255, alpha255));
   }
   return null;
 }
