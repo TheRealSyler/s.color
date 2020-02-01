@@ -1,5 +1,12 @@
-import Color, { RGBColor, HSVColor, ShiftHue } from './index';
-import { HSVToRGB, StringToRGB, RGBToHEX, RGBToHSV, StringToHVS } from './ColorConverters';
+import Color, { RGBColor, HSVColor, ShiftHue, GetReadableTextColor } from './index';
+import {
+  HSVToRGB,
+  StringToRGB,
+  RGBToHEX,
+  RGBToHSV,
+  StringToHVS,
+  HSVToHEX
+} from './ColorConverters';
 
 test('Get Hex', () => {
   const a = new Color({ r: 0, g: 0, b: 0, a: 0 });
@@ -76,12 +83,12 @@ test('RGB to HSV to RGB', () => {
   expect(HSVToRGB(RGBToHSV(HSVToRGB(RGBToHSV(new RGBColor(255, 255, 255)))))).toStrictEqual(
     new RGBColor(255, 255, 255)
   );
-  expect(HSVToRGB(RGBToHSV(HSVToRGB(RGBToHSV(HSVToRGB(RGBToHSV(new RGBColor(213, 213, 76)))))))).toStrictEqual(
-    new RGBColor(213, 213, 75.99999999999999)
-  );
-  expect(HSVToRGB(RGBToHSV(HSVToRGB(RGBToHSV(HSVToRGB(RGBToHSV(new RGBColor(54, 0, 34)))))))).toStrictEqual(
-    new RGBColor(54, 0, 34.00000000000001)
-  );
+  expect(
+    HSVToRGB(RGBToHSV(HSVToRGB(RGBToHSV(HSVToRGB(RGBToHSV(new RGBColor(213, 213, 76)))))))
+  ).toStrictEqual(new RGBColor(213, 213, 75.99999999999999));
+  expect(
+    HSVToRGB(RGBToHSV(HSVToRGB(RGBToHSV(HSVToRGB(RGBToHSV(new RGBColor(54, 0, 34)))))))
+  ).toStrictEqual(new RGBColor(54, 0, 34.00000000000001));
 });
 
 test('Shift Hue', () => {
@@ -149,4 +156,15 @@ test('RGB to HEX', () => {
 
 test('String to HSV', () => {
   expect(StringToHVS('#ff0000')).toStrictEqual(new HSVColor(0, 100, 100));
+  expect(StringToHVS('red')).toStrictEqual(new HSVColor(0, 100, 100));
+  expect(StringToHVS('blue')).toStrictEqual(new HSVColor(240, 100, 100));
+  expect(StringToHVS('yellow')).toStrictEqual(new HSVColor(60, 100, 100));
+});
+test('HSV to HEX', () => {
+  expect(HSVToHEX(new HSVColor(0, 100, 100))).toStrictEqual('#ff0000ff');
+});
+
+// TODO Add Better tests
+test('GetReadableTextColor', () => {
+  expect(GetReadableTextColor('#ff0000ff')).toStrictEqual('#fff');
 });

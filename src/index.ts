@@ -8,7 +8,7 @@ export * from './ColorTypes';
 export * from './ColorConverters';
 export * from './regex';
 export * from './validators';
-export * from './UtilityFunction';
+export * from './utils';
 
 export default class Color {
   private color: RGBColor;
@@ -23,13 +23,13 @@ export default class Color {
       } else {
         switch (type) {
           case 'rgb':
-            return `rgb(${Math.round(this.color.r * 255)}, ${Math.round(this.color.g * 255)}, ${Math.round(
-              this.color.b * 255
-            )})`;
+            return `rgb(${Math.round(this.color.r * 255)}, ${Math.round(
+              this.color.g * 255
+            )}, ${Math.round(this.color.b * 255)})`;
           case 'rgba':
-            return `rgba(${Math.round(this.color.r * 255)}, ${Math.round(this.color.g * 255)}, ${Math.round(
-              this.color.b * 255
-            )}, ${this.color.a.toFixed(2).toString()})`;
+            return `rgba(${Math.round(this.color.r * 255)}, ${Math.round(
+              this.color.g * 255
+            )}, ${Math.round(this.color.b * 255)}, ${this.color.a.toFixed(2).toString()})`;
           case 'object':
             return this.color;
           case 'hsv':

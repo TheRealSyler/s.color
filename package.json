@@ -1,6 +1,6 @@
 {
   "name": "s.color",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Simple color library.",
   "main": "lib/index.js",
   "files": [
@@ -11,8 +11,9 @@
     "lib": "lib"
   },
   "scripts": {
-    "prepack": "npm run test",
-    "test": "tsc -b && jest"
+    "prepack": "npm run test && suf",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch --coverage"
   },
   "author": "Syler",
   "license": "MIT",
@@ -31,5 +32,8 @@
     "rgb",
     "hex",
     "rgba"
-  ]
+  ],
+  "dependencies": {
+    "suf-cli": "^0.1.0"
+  }
 }

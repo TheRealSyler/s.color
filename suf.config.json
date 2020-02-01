@@ -1,0 +1,28 @@
+{
+  "badges": {
+    "name": "s.color",
+    "github": "TheRealSyler",
+    "repo": "s.color",
+    "out": "README.md",
+    "badges": [
+      "circleci circleci",
+      "badge=https://codecov.io/gh/TheRealSyler/s.color/branch/master/graph/badge.svg link=https://codecov.io/gh/TheRealSyler/s.color",
+      "npmV npm ?color=green",
+      "min bundle",
+      "install package",
+      "githubLastCommit github"
+    ]
+  },
+  "tsDoc": {
+    "title": "Docs",
+    "dir": "lib",
+    "out": "README.md"
+  },
+  "license": {
+    "name": "Leonard Grosoli",
+    "type": "mit",
+    "year": "2020",
+    "out": "README.md",
+    "file": "LICENSE"
+  }
+}

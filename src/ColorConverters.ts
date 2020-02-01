@@ -3,6 +3,7 @@ import { ConvertString } from './HandleSet';
 import { isValidStringColor } from './validators';
 import { HandleGetHex } from './HandleGet';
 import { GetColorTypeHex } from './interfaces';
+import { convertCssColorToHex } from './utils';
 
 /**
  * Takes an `RGBColor` and converts it to `HSVColor`
@@ -46,7 +47,8 @@ export function HSVToRGB(hsv: HSVColor, is100?: boolean): RGBColor {
   if (isLong) {
     hsv = { a: hsv.a, h: hsv.h, s: hsv.s / 100, v: hsv.v / 100 };
   }
-  const f = (n: number, k = (n + hsv.h / 60) % 6) => hsv.v - hsv.v * hsv.s * Math.max(Math.min(k, 4 - k, 1), 0);
+  const f = (n: number, k = (n + hsv.h / 60) % 6) =>
+    hsv.v - hsv.v * hsv.s * Math.max(Math.min(k, 4 - k, 1), 0);
 
   if (isLong) {
     return new RGBColor(f(5) * 255, f(3) * 255, f(1) * 255, hsv.a);
@@ -59,6 +61,7 @@ export function HSVToRGB(hsv: HSVColor, is100?: boolean): RGBColor {
  * If input string is invalid `null` will be returned.
  */
 export function StringToRGB(input: string, return255?: boolean, alpha255?: boolean): RGBColor {
+  input = convertCssColorToHex(input);
   if (isValidStringColor(input)) {
     return ConvertString(input, return255, alpha255);
   }
@@ -69,6 +72,7 @@ export function StringToRGB(input: string, return255?: boolean, alpha255?: boole
  * If input string is invalid `null` will be returned.
  */
 export function StringToHVS(input: string, return255?: boolean, alpha255?: boolean): HSVColor {
+  input = convertCssColorToHex(input);
   if (isValidStringColor(input)) {
     return RGBToHSV(ConvertString(input, return255, alpha255));
   }
@@ -77,13 +81,22 @@ export function StringToHVS(input: string, return255?: boolean, alpha255?: boole
 /**
  * Takes an `HSVColor` and converts it to `String` (HEX Format)
  */
-export function HSVToHEX(hsv: HSVColor, options?: { type?: GetColorTypeHex; isLong?: boolean }): string {
+export function HSVToHEX(
+  hsv: HSVColor,
+  options?: { type?: GetColorTypeHex; isLong?: boolean }
+): string {
   if (hsv.s > 1 || hsv.v > 1 || (options && options.isLong)) {
     hsv.s = hsv.s / 100;
     hsv.v = hsv.v / 100;
   }
-  const f = (n: number, k = (n + hsv.h / 60) % 6) => hsv.v - hsv.v * hsv.s * Math.max(Math.min(k, 4 - k, 1), 0);
-  return HandleGetHex(options && options.type ? options.type : 'hex', { r: f(5), g: f(3), b: f(1), a: hsv.a });
+  const f = (n: number, k = (n + hsv.h / 60) % 6) =>
+    hsv.v - hsv.v * hsv.s * Math.max(Math.min(k, 4 - k, 1), 0);
+  return HandleGetHex(options && options.type ? options.type : 'hex', {
+    r: f(5),
+    g: f(3),
+    b: f(1),
+    a: hsv.a
+  });
 }
 
 /**
