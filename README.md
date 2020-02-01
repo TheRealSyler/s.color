@@ -39,25 +39,24 @@
 
 - **[index](#index)**
 
-
-- **[interfaces](#interfaces)**
+* **[interfaces](#interfaces)**
 
   - [GetColorTypeHex](#getcolortypehex)
   - [GetColorType](#getcolortype)
   - [GetColorOptions](#getcoloroptions)
 
-- **[regex](#regex)**
+* **[regex](#regex)**
 
   - [isValidHex](#isvalidhex)
   - [isValidRGB](#isvalidrgb)
 
-- **[utils](#utils)**
+* **[utils](#utils)**
 
   - [GetReadableTextColor](#getreadabletextcolor)
   - [ShiftHue](#shifthue)
   - [convertCssColorToHex](#convertcsscolortohex)
 
-- **[validators](#validators)**
+* **[validators](#validators)**
 
   - [isValidStringColor](#isvalidstringcolor)
 
@@ -134,23 +133,23 @@ function RGBToHEX(color: RGBColor, type?: GetColorTypeHex): string;
  * Range `[0 - 1]`
  */
 class RGBColor {
-    /**
-     * Range [0-1]
-     */
-    r: number;
-    /**
-     * Range [0-1]
-     */
-    g: number;
-    /**
-     * Range [0-1]
-     */
-    b: number;
-    /**
-     * Range [0-1]
-     */
-    a: number;
-    constructor(r: number, g: number, b: number, a?: number);
+  /**
+   * Range [0-1]
+   */
+  r: number;
+  /**
+   * Range [0-1]
+   */
+  g: number;
+  /**
+   * Range [0-1]
+   */
+  b: number;
+  /**
+   * Range [0-1]
+   */
+  a: number;
+  constructor(r: number, g: number, b: number, a?: number);
 }
 ```
 
@@ -164,23 +163,23 @@ class RGBColor {
  * Range `[h 0 - 360, v/s/a 0 - 1]`
  */
 class HSVColor {
-    /**
-     * Range [0-360]
-     */
-    h: number;
-    /**
-     * Range [0-100]
-     */
-    s: number;
-    /**
-     * Range [0-100]
-     */
-    v: number;
-    /**
-     * Range [0-1]
-     */
-    a: number;
-    constructor(h: number, s: number, v: number, a?: number);
+  /**
+   * Range [0-360]
+   */
+  h: number;
+  /**
+   * Range [0-100]
+   */
+  s: number;
+  /**
+   * Range [0-100]
+   */
+  v: number;
+  /**
+   * Range [0-1]
+   */
+  a: number;
+  constructor(h: number, s: number, v: number, a?: number);
 }
 ```
 
@@ -194,8 +193,8 @@ class HSVColor {
  *
  */
 class StringColor {
-    color: string;
-    constructor(color: string);
+  color: string;
+  constructor(color: string);
 }
 ```
 
@@ -229,7 +228,9 @@ function HandleConvertHexString(text: string, return255?: boolean, alpha255?: bo
 ##### GetReadableTextColor
 
 ```typescript
-function GetReadableTextColor(color: RGBColor | HSVColor | StringColor | string): RGBColor | HSVColor | "#000" | "#fff";
+function GetReadableTextColor(
+  color: RGBColor | HSVColor | StringColor | string
+): RGBColor | HSVColor | '#000' | '#fff';
 ```
 
 ##### ShiftHue
@@ -261,10 +262,10 @@ type GetColorType = 'rgb' | GetColorTypeHex | 'rgba' | 'object' | 'hsv';
 
 ```typescript
 interface GetColorOptions {
-    /**
-     * if true `#fff` will be output as `#FFF`
-     */
-    UpperCaseHex: boolean;
+  /**
+   * if true `#fff` will be output as `#FFF`
+   */
+  UpperCaseHex: boolean;
 }
 ```
 
@@ -287,7 +288,9 @@ function isValidRGB(text: string): boolean;
 ##### GetReadableTextColor
 
 ```typescript
-function GetReadableTextColor(color: RGBColor | HSVColor | StringColor | string): RGBColor | HSVColor | "#000" | "#fff";
+function GetReadableTextColor(
+  color: RGBColor | HSVColor | StringColor | string
+): RGBColor | HSVColor | '#000' | '#fff';
 ```
 
 ##### ShiftHue
@@ -316,6 +319,9 @@ function isValidStringColor(input: string): string;
 
 _Generated with_ **[suf-cli](https://www.npmjs.com/package/suf-cli)**
 <span id="DOC_GENERATION_MARKER_1"></span>
+
+# License
+
 <span id="LICENSE_GENERATION_MARKER_0"></span>
 Copyright (c) 2020 Leonard Grosoli Licensed under the MIT license.
 <span id="LICENSE_GENERATION_MARKER_1"></span>
