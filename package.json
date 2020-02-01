@@ -1,6 +1,6 @@
 {
   "name": "s.color",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Simple color library.",
   "main": "lib/index.js",
   "files": [
@@ -11,7 +11,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "prepack": "npm run test && suf",
+    "prepack": "tsc -b && npm run test && suf",
     "test": "jest --coverage",
     "test:watch": "jest --watch --coverage"
   },
