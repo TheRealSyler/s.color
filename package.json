@@ -11,17 +11,19 @@
     "lib": "lib"
   },
   "scripts": {
-    "prepack": "tsc -b && npm run test && suf",
+    "prepack": "tsc -b && yarn test && yarn build:deno && suf",
     "test": "jest --coverage",
+    "build:deno": "ts-node ./buildDeno.ts",
     "test:watch": "jest --watch --coverage"
   },
   "author": "Syler",
   "license": "MIT",
   "devDependencies": {
-    "jest": "^24.9.0",
-    "ts-jest": "^24.0.2",
-    "suf-cli": "^0.1.0",
     "@types/jest": "^24.0.18",
+    "jest": "^24.9.0",
+    "suf-cli": "^0.1.0",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^9.1.1",
     "typescript": "^3.6.2"
   },
   "repository": {
