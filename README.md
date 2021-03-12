@@ -32,11 +32,6 @@
   - [ConvertString](#convertstring)
   - [HandleConvertHexString](#handleconverthexstring)
 
-- **[UtilityFunction](#utilityfunction)**
-
-  - [GetReadableTextColor](#getreadabletextcolor)
-  - [ShiftHue](#shifthue)
-
 - **[index](#index)**
 
 
@@ -88,7 +83,7 @@ function HSVToRGB(hsv: HSVColor, is100?: boolean): RGBColor;
  * Takes an `StringColor` and converts it to `RGBColor`,
  * If input string is invalid `null` will be returned.
  */
-function StringToRGB(input: string, return255?: boolean, alpha255?: boolean): RGBColor;
+function StringToRGB(input: string, return255?: boolean, alpha255?: boolean): RGBColor | null | undefined;
 ```
 
 ##### StringToHVS
@@ -98,7 +93,7 @@ function StringToRGB(input: string, return255?: boolean, alpha255?: boolean): RG
  * Takes an `StringColor` and converts it to `HSVColor`,
  * If input string is invalid `null` will be returned.
  */
-function StringToHVS(input: string, return255?: boolean, alpha255?: boolean): HSVColor;
+function StringToHVS(input: string, return255?: boolean, alpha255?: boolean): HSVColor | null | undefined;
 ```
 
 ##### HSVToHEX
@@ -222,23 +217,6 @@ function ConvertString(input: string, return255?: boolean, alpha255?: boolean): 
  * **assumes that the input is valid**
  */
 function HandleConvertHexString(text: string, return255?: boolean, alpha255?: boolean): RGBColor;
-```
-
-### UtilityFunction
-
-##### GetReadableTextColor
-
-```typescript
-function GetReadableTextColor(color: RGBColor | HSVColor | StringColor | string): RGBColor | HSVColor | "#000" | "#fff";
-```
-
-##### ShiftHue
-
-```typescript
-/**
- * Shifts the hue of the `HSVColor` by the Value
- */
-function ShiftHue(hsv: HSVColor, value: number): HSVColor;
 ```
 
 ### index

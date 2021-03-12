@@ -5,6 +5,7 @@ import { HandleGetHex } from './HandleGet.ts';
 import { GetColorTypeHex } from './interfaces.ts';
 import { convertCssColorToHex } from './utils.ts';
 
+
 /**
  * Takes an `RGBColor` and converts it to `HSVColor`
  */
@@ -21,14 +22,14 @@ export function RGBToHSV(color: RGBColor, is255?: boolean): HSVColor {
     cMax === 1 && cMin === 1
       ? 0
       : cMax === 0 && cMin === 0
-      ? 0
-      : cMax === color.r
-      ? (60 * ((color.g - color.b) / diff) + 360) % 360
-      : cMax === color.g
-      ? (60 * ((color.b - color.r) / diff) + 120) % 360
-      : cMax === color.b
-      ? (60 * ((color.r - color.g) / diff) + 240) % 360
-      : 0;
+        ? 0
+        : cMax === color.r
+          ? (60 * ((color.g - color.b) / diff) + 360) % 360
+          : cMax === color.g
+            ? (60 * ((color.b - color.r) / diff) + 120) % 360
+            : cMax === color.b
+              ? (60 * ((color.r - color.g) / diff) + 240) % 360
+              : 0;
   // Saturation
   let saturation: number;
   //
@@ -60,7 +61,7 @@ export function HSVToRGB(hsv: HSVColor, is100?: boolean): RGBColor {
  * Takes an `StringColor` and converts it to `RGBColor`,
  * If input string is invalid `null` will be returned.
  */
-export function StringToRGB(input: string, return255?: boolean, alpha255?: boolean): RGBColor {
+export function StringToRGB(input: string, return255?: boolean, alpha255?: boolean): RGBColor | null | undefined {
   input = convertCssColorToHex(input);
   if (isValidStringColor(input)) {
     return ConvertString(input, return255, alpha255);
@@ -71,10 +72,10 @@ export function StringToRGB(input: string, return255?: boolean, alpha255?: boole
  * Takes an `StringColor` and converts it to `HSVColor`,
  * If input string is invalid `null` will be returned.
  */
-export function StringToHVS(input: string, return255?: boolean, alpha255?: boolean): HSVColor {
+export function StringToHVS(input: string, return255?: boolean, alpha255?: boolean): HSVColor | null | undefined {
   input = convertCssColorToHex(input);
   if (isValidStringColor(input)) {
-    return RGBToHSV(ConvertString(input, return255, alpha255));
+    return RGBToHSV(ConvertString(input, return255, alpha255)!);
   }
   return null;
 }

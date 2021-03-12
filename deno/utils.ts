@@ -5,10 +5,14 @@ import { RGBColor, HSVColor, StringColor } from './ColorTypes.ts';
 export function GetReadableTextColor(color: RGBColor | HSVColor | StringColor | string) {
   if (typeof color === 'string') {
     const rgb = StringToRGB(color);
-    return (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000 > 0.5 ? '#000' : '#fff';
+    if (rgb) {
+      return (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000 > 0.5 ? '#000' : '#fff';
+    }
   } else if (color instanceof StringColor) {
     const rgb = StringToRGB(color.color);
-    return (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000 > 0.5 ? '#000' : '#fff';
+    if (rgb) {
+      return (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000 > 0.5 ? '#000' : '#fff';
+    }
   } else if (color instanceof RGBColor) {
     const isLong = color.b > 1 || color.g > 1 || color.r > 1;
     const v = isLong ? 255 : 1;
@@ -21,6 +25,7 @@ export function GetReadableTextColor(color: RGBColor | HSVColor | StringColor | 
       ? new HSVColor(0, 0, 0)
       : new HSVColor(0, 0, color.s > 1 || color.v > 1 ? 100 : 1);
   }
+  return null
 }
 
 /**
@@ -40,7 +45,7 @@ export function convertCssColorToHex(color: string): string {
   return color;
 }
 
-const cssColors = {
+const cssColors: { [key: string]: string } = {
   aliceblue: '#f0f8ff',
   antiquewhite: '#faebd7',
   aqua: '#00ffff',

@@ -11,9 +11,9 @@ export * from './validators';
 export * from './utils';
 
 export default class Color {
-  private color: RGBColor;
+  private color!: RGBColor;
   constructor(input?: string | RGBColor) {
-    this.Set(input);
+    this.Set(input!);
   }
 
   Get(type?: GetColorType, options?: GetColorOptions) {
