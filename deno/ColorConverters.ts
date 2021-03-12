@@ -5,7 +5,6 @@ import { HandleGetHex } from './HandleGet.ts';
 import { GetColorTypeHex } from './interfaces.ts';
 import { convertCssColorToHex } from './utils.ts';
 
-
 /**
  * Takes an `RGBColor` and converts it to `HSVColor`
  */

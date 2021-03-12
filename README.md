@@ -17,15 +17,15 @@
   - [HSVToHEX](#hsvtohex)
   - [RGBToHEX](#rgbtohex)
 
+- **[HandleGet](#handleget)**
+
+  - [HandleGetHex](#handlegethex)
+
 - **[ColorTypes](#colortypes)**
 
   - [RGBColor](#rgbcolor)
   - [HSVColor](#hsvcolor)
   - [StringColor](#stringcolor)
-
-- **[HandleGet](#handleget)**
-
-  - [HandleGetHex](#handlegethex)
 
 - **[HandleSet](#handleset)**
 
@@ -117,6 +117,14 @@ function HSVToHEX(hsv: HSVColor, options?: {
 function RGBToHEX(color: RGBColor, type?: GetColorTypeHex): string;
 ```
 
+### HandleGet
+
+##### HandleGetHex
+
+```typescript
+function HandleGetHex(type: GetColorType, color: RGBColor, options?: GetColorOptions): string;
+```
+
 ### ColorTypes
 
 ##### RGBColor
@@ -192,14 +200,6 @@ class StringColor {
     color: string;
     constructor(color: string);
 }
-```
-
-### HandleGet
-
-##### HandleGetHex
-
-```typescript
-function HandleGetHex(type: GetColorType, color: RGBColor, options?: GetColorOptions): string;
 ```
 
 ### HandleSet

@@ -51,7 +51,8 @@ export default class Color {
       );
     } else if (typeof input === 'string') {
       const tempColor = ConvertString(input);
-      this.color = tempColor === null ? this.color : tempColor;
+
+      this.color = (tempColor === null ? this.color : tempColor)!;
     } else {
       this.color = new RGBColor(0, 0, 0, 0);
     }

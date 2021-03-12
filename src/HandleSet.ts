@@ -14,7 +14,7 @@ export function ConvertString(input: string, return255?: boolean, alpha255?: boo
  * **assumes that the input is valid**
  */
 export function HandleConvertHexString(text: string, return255?: boolean, alpha255?: boolean) {
-  let color = { red: 0, green: 0, blue: 0, alpha: 0 };
+  const color = { red: 0, green: 0, blue: 0, alpha: 0 };
   const raw = text.replace('#', '');
   const length = raw.length;
   const modulo = length % 3;

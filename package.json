@@ -13,7 +13,7 @@
   "scripts": {
     "prepack": "tsc -b && yarn test && yarn build:deno && suf",
     "test": "jest --coverage",
-    "build:deno": "ts-node ./buildDeno.ts",
+    "build:deno": "del ./deno && ts-node ./buildDeno.ts",
     "test:watch": "jest --watch --coverage"
   },
   "author": "Syler",
